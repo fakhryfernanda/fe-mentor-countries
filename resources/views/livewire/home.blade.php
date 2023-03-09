@@ -33,28 +33,38 @@
             </div>
         </div>
     </div>
-    <div>
-        <div class="shadow-md rounded-md w-60 bg-white">
-            <div class="">
-                <img class="rounded-t-md" src="https://flagcdn.com/de.svg" alt="germany-flag">
-            </div>
-            <div class="py-8 px-6">
-                <h2 class="py-2 text-lg font-semibold">Germany</h2>
-                <div class="space-y-1">
-                    <p>
-                        <span class="font-medium">Population:</span>
-                        <span>81.770.900</span>
-                    </p>
-                    <p>
-                        <span class="font-medium">Region:</span>
-                        <span>Europe</span>
-                    </p>
-                    <p>
-                        <span class="font-medium">Capital:</span>
-                        <span>Berlin</span>
-                    </p>
+    <div class="mt-20 flex flex-wrap justify-center gap-x-12 gap-y-12">
+        @foreach($countries as $country)
+            <div class="shadow-md rounded-md w-72 bg-white flex-initial">
+                <div class="flex items-center">
+                    <img class="rounded-t-md w-full h-40 object-contain" src="{{ $country->flags->svg }}" alt="germany-flag">
+                </div>
+                <div class="py-8 px-6">
+                    <div class="h-20 py-2 flex items-center">
+                        <h2 class="text-lg font-semibold">{{ $country->name }}</h2>
+                    </div>
+                    <div class="space-y-1">
+                        <p>
+                            <span class="font-medium">Population:</span>
+                            <span>{{ number_format($country->population) }}</span>
+                        </p>
+                        <p>
+                            <span class="font-medium">Region:</span>
+                            <span>{{ $country->region }}</span>
+                        </p>
+                        <p>
+                            <span class="font-medium">Capital:</span>
+                            <span>
+                                @if (property_exists($country, 'capital'))
+                                    {{ $country->capital }}
+                                @else
+                                    -
+                                @endif
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 </div>
